@@ -3,9 +3,11 @@ package config
 import (
 	"flag"
 	"github.com/btcsuite/btcd/rpcclient"
+	"github.com/btcsuite/btclog"
 	configParser "github.com/sham1316/configparser"
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v2"
+	"io"
 	"io/ioutil"
 	"sync"
 )
@@ -15,6 +17,15 @@ var once sync.Once
 
 var configPath *string
 
+type btcWriter struct {
+	io.Writer
+}
+
+func (w btcWriter) Write(p []byte) (n int, err error) {
+	zap.S().Info(string(p))
+	return 0, err
+}
+
 func init() {
 	configPath = flag.String("config", "config.yml", "Configuration file path")
 	flag.Parse()
@@ -23,6 +34,7 @@ func init() {
 	zapLogger, _ := zapCfg.Build()
 	zap.ReplaceGlobals(zapLogger)
 	defer zapLogger.Sync() // flushes buffer, if any
+
 }
 
 func GetInstance() *Config {
@@ -30,6 +42,11 @@ func GetInstance() *Config {
 		config = loadConfig(configPath)
 		config.Logger = zap.S()
 		config.Logger.Debugf("%+v\n", config)
+
+		btcLog := btclog.NewBackend(btcWriter{}).Logger("rpcClient")
+		btcLog.SetLevel(btclog.LevelWarn)
+		rpcclient.UseLogger(btcLog)
+
 	})
 	return config
 }
