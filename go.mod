@@ -11,4 +11,4 @@ require (
 	gopkg.in/yaml.v2 v2.4.0
 )
 
-replace github.com/btcsuite/btcd => github.com/sham1316/btcd v0.21.0-beta.0.20210311150252-7788eda524af
+replace github.com/btcsuite/btcd => github.com/sham1316/btcd v0.21.0-beta.0.20210313112458-669d9b23ae2c

@@ -266,8 +266,8 @@ github.com/russross/blackfriday/v2 v2.0.1/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQD
 github.com/ryanuber/columnize v0.0.0-20160712163229-9b3edd62028f/go.mod h1:sm1tb6uqfes/u+d4ooFouqFdy9/2g9QGwK3SQygK0Ts=
 github.com/samuel/go-zookeeper v0.0.0-20190923202752-2cc03de413da/go.mod h1:gi+0XIa01GRL2eRQVjQkKGqKF3SF9vZR/HnPullcV2E=
 github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529/go.mod h1:DxrIzT+xaE7yg65j358z/aeFdxmN0P9QXhEzd20vsDc=
-github.com/sham1316/btcd v0.21.0-beta.0.20210311150252-7788eda524af h1:qIVVUmJ1N1wC+cC6JhgZ+xD0hYPRIKKRHitomWOBtxo=
-github.com/sham1316/btcd v0.21.0-beta.0.20210311150252-7788eda524af/go.mod h1:Sv4JPQ3/M+teHz9Bo5jBpkNcP0x6r7rdihlNL/7tTAs=
+github.com/sham1316/btcd v0.21.0-beta.0.20210313112458-669d9b23ae2c h1:RbcpN49Q7kpYqUfVznYHCFiJ8cjxj8mMtG/Zrh8jU10=
+github.com/sham1316/btcd v0.21.0-beta.0.20210313112458-669d9b23ae2c/go.mod h1:Sv4JPQ3/M+teHz9Bo5jBpkNcP0x6r7rdihlNL/7tTAs=
 github.com/sham1316/configparser v0.0.0-20200623154026-c5b8f6832218 h1:a5Dcqiir8y0kzBtfCWL+/aTj//ONjUqwbF77HlijTkY=
 github.com/sham1316/configparser v0.0.0-20200623154026-c5b8f6832218/go.mod h1:wJJGbPPIFQbeh5wq6CIXCjPYSVivX/DobhAD70PDDnI=
 github.com/shurcooL/sanitized_anchor_name v1.0.0/go.mod h1:1NzhyTcUVG4SuEtjjoZeVRXNmyL/1OwPU0+IJeTBvfc=

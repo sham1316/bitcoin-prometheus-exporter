@@ -89,32 +89,42 @@ func main() {
 		return float64(value)
 	})
 
+	mempoolBytes := prometheus.NewGauge(prometheus.GaugeOpts{
+		Namespace: cfg.Metrics.MetricsPrefix,
+		Subsystem: "mempool",
+		Name:      "bytes",
+		Help:      "Bytes in mempool",
+	})
+	prometheus.MustRegister(mempoolBytes)
+	mempoolBytes.Set(float64(42))
+
 	setGauge("size", cfg.Metrics.MetricsPrefix, "mempool", "The number of txes in mempool", func() float64 {
 		mempoolInfo, err := client.GetMempoolInfo()
 		if err != nil {
 			warningCounter.Inc()
 			zap.S().Error(err)
 		}
+		mempoolBytes.Set(float64(mempoolInfo.Bytes))
 		return float64(mempoolInfo.Size)
 	})
 
-	setGauge("byte", cfg.Metrics.MetricsPrefix, "mempool", "Bytes in mempool", func() float64 {
-		mempoolInfo, err := client.GetMempoolInfo()
+	setGauge("size_on_disk", cfg.Metrics.MetricsPrefix, "", "Estimated size of the block and undo files", func() float64 {
+		blockChainInfo, err := client.GetBlockChainInfo()
 		if err != nil {
 			warningCounter.Inc()
 			zap.S().Error(err)
 		}
-		return float64(mempoolInfo.Bytes)
+		return float64(blockChainInfo.SizeOnDisk)
 	})
 
-	//setGauge("uptime", cfg.Metrics.MetricsPrefix, "", "Number of seconds the Bitcoin daemon has been running", func() float64 {
-	//	value, err := client.Uptime(120)
-	//	if err != nil {
-	//		warningCounter.Inc()
-	//		zap.S().Error(err)
-	//	}
-	//	return float64(value)
-	//})
+	setGauge("uptime", cfg.Metrics.MetricsPrefix, "", "Number of seconds the Bitcoin daemon has been running", func() float64 {
+		value, err := client.GetUptime()
+		if err != nil {
+			warningCounter.Inc()
+			zap.S().Error(err)
+		}
+		return float64(value)
+	})
 
 	http.Handle(cfg.Metrics.MetricsPath, WithLogging(promhttp.Handler()))
 	zap.S().Info("Start listener on " + cfg.Metrics.MetricsHost)
